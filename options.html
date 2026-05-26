@@ -32,7 +32,7 @@
             max-width: 100%;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
             padding: 16px;
             margin-bottom: 16px;
             overflow-x: auto;
@@ -159,51 +159,67 @@
 
 <body>
 <div class="wrap">
-    <h2>规则管理</h2>
-
+    <h2  data-i18n="ruleManagement">规则管理</h2>
+    <div class="form-item">
+        <label data-i18n="language">语言</label>
+        <select id="language" class="layui-select">
+            <option value="auto">🌐 Auto / Browser</option>
+            <option value="zh_CN">CN · 中文</option>
+            <option value="en">EN · English</option>
+            <option value="hi">IN · हिन्दी</option>
+            <option value="fr">FR · Français</option>
+            <option value="es">ES · Español</option>
+            <option value="de">DE · Deutsch</option>
+            <option value="ja">JP · 日本語</option>
+            <option value="ko">KR · 한국어</option>
+            <option value="pt">PT · Português</option>
+            <option value="ru">RU · Русский</option>
+            <option value="ar">AR · العربية</option>
+        </select>
+    </div>
     <div class="card">
         <div class="layui-form form-column">
 
             <div class="form-item">
-                <label>匹配类型</label>
+                <label data-i18n="ruleManagement">匹配类型</label>
                 <select id="type" class="layui-select">
-                    <option value="match">match（通配）</option>
-                    <option value="regex">regex（正则）</option>
+                    <option value="match" data-i18n="match">match（通配）</option>
+                    <option value="regex" data-i18n="regex">regex（正则）</option>
                 </select>
             </div>
 
             <div class="form-item">
-                <label>匹配模式</label>
+                <label data-i18n="matchType">匹配模式</label>
                 <input
                         id="pattern"
-                        type="text"
+                        type="text"  data-i18n="patternPlaceholderMatch"
                         placeholder="如：https://www.qidian.com/chapter/*"
                         class="layui-input"
                 >
             </div>
 
             <div class="form-item">
-                <label>页面标题</label>
+                <label data-i18n="title">页面标题</label>
                 <input
                         id="title"
-                        type="text"
+                        type="text"  data-i18n="titlePlaceholder"
                         placeholder="设置的标题"
                         class="layui-input"
                 >
             </div>
 
             <div class="form-item">
-                <label>图标 URL</label>
+                <label data-i18n="icon">图标 URL</label>
                 <input
                         id="icon"
-                        type="text"
+                        type="text"  data-i18n="iconPlaceholder"
                         placeholder="图标 URL（可选）"
                         class="layui-input"
                 >
             </div>
 
             <div class="form-item">
-                <button id="add" type="button" class="layui-btn layui-btn-normal">
+                <button id="add" type="button" class="layui-btn layui-btn-normal" data-i18n="addRule">
                     添加规则
                 </button>
             </div>
@@ -216,11 +232,11 @@
             <table class="layui-table" id="list">
                 <thead>
                 <tr>
-                    <th>类型</th>
-                    <th>地址</th>
-                    <th>标题</th>
-                    <th>图标</th>
-                    <th>操作</th>
+                    <th data-i18n="pattern">类型</th>
+                    <th data-i18n="adresse">地址</th>
+                    <th data-i18n="title">标题</th>
+                    <th data-i18n="icon">图标</th>
+                    <th data-i18n="action">操作</th>
                 </tr>
                 </thead>
                 <tbody id="table-body"></tbody>
@@ -229,6 +245,7 @@
     </div>
 </div>
 
+<script src="i18n.js"></script>
 <script src="options.js" defer></script>
 </body>
 </html>

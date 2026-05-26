@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("open").addEventListener("click", () => {
     chrome.runtime.openOptionsPage();
 });
+const lang = getCurrentLanguage();
+const dict = messages[lang] || messages.en;
 
 document.getElementById("add").addEventListener("click", async () => {
     const title = document.getElementById("title").value.trim();
     const icon = document.getElementById("icon").value.trim();
     if (title == undefined || !title.trim() || title.length == 0) {
-        return alert("请填写标题");
+        return alert(dict.requiredTitlePattern);
     }
     // 需要 "tabs" 权限来 query 当前激活标签
     chrome.tabs.query({active: true, currentWindow: true}, async tabs => {
@@ -30,8 +32,11 @@ document.getElementById("add").addEventListener("click", async () => {
             }
             await chrome.storage.sync.set({rules});
             // 小提示
-            alert(`添加成功`);
+            alert(dict.addedSuccessfully);
             chrome.tabs.reload(tabs.id);
         }
     });
+});
+document.addEventListener("DOMContentLoaded", async () => {
+    await applyI18n();
 });

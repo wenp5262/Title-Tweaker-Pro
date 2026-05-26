@@ -3,26 +3,32 @@ const patternEl = document.getElementById("pattern");
 const titleEl = document.getElementById("title");
 const addBtn = document.getElementById("add");
 const iconEl = document.getElementById("icon");
-
+const lang = getCurrentLanguage();
+const dict = messages[lang] || messages.en;
 (async () => {
-    const { rules } = await chrome.storage.sync.get("rules");
+    const {rules} = await chrome.storage.sync.get("rules");
     const rows = (rules || []).map((r, i) => `
-    <tr>
-      <td>${r.type}</td>
-      <td>${r.pattern}</td>
-      <td>${r.title}</td>
-      <td>${r.icon || ""}</td>
-      <td><button data-index="${i}" class="layui-btn layui-btn-xs layui-btn-danger del">删除</button></td>
-    </tr>
-  `).join("");
+  <tr>
+    <td>${r.type}</td>
+    <td>${r.pattern}</td>
+    <td>${r.title}</td>
+    <td>${r.icon || ""}</td>
+    <td>
+      <button class="layui-btn layui-btn-danger layui-btn-sm del" data-index="${i}">
+        ${dict.delete}
+      </button>
+    </td>
+  </tr>
+`).join("");
+
     document.getElementById("table-body").innerHTML = rows;
 
     document.querySelectorAll(".del").forEach(btn => {
         btn.addEventListener("click", async e => {
             const idx = parseInt(e.target.dataset.index);
-            const { rules } = await chrome.storage.sync.get("rules");
+            const {rules} = await chrome.storage.sync.get("rules");
             rules.splice(idx, 1);
-            await chrome.storage.sync.set({ rules });
+            await chrome.storage.sync.set({rules});
             location.reload(); // 重新加载刷新表格
         });
     });
@@ -31,9 +37,9 @@ const iconEl = document.getElementById("icon");
 // ✅ 动态修改提示
 typeEl.addEventListener("change", () => {
     if (typeEl.value === "regex") {
-        patternEl.placeholder = "示例：^https?:\\/\\/www\\.qidian\\.com\\/chapter\\/\\d+";
+        patternEl.placeholder = dict.patternPlaceholderRegex;
     } else {
-        patternEl.placeholder = "示例：https://www.qidian.com/chapter/*";
+        patternEl.placeholder = dict.patternPlaceholderMatch;
     }
 });
 
@@ -51,7 +57,7 @@ addBtn.addEventListener("click", async () => {
     const pattern = patternEl.value.trim();
     const title = titleEl.value.trim();
     const icon = (iconEl.value || "").trim();
-    if (!pattern || !title) return alert("标题和链接必填");
+    if (!pattern || !title) return alert(dict.requiredTitlePattern);
 
     const rules = await getRules();
     rules.push({type, pattern, title, icon});
@@ -60,4 +66,9 @@ addBtn.addEventListener("click", async () => {
     patternEl.value = "";
     titleEl.value = "";
     iconEl.value = "";
+    location.reload(); // 重新加载刷新表格
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await applyI18n();
 });
