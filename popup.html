@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>配置</title>
+    <link href="layui.css" rel="stylesheet">
+</head>
+<body style="font-family:system-ui;padding:12px;min-width:280px;">
+<h3 style="margin:0 0 8px;"></h3>
+<h3 style="margin-bottom: 20px">快速操作</h3>
+<hr>
+<div class="layui-form-item" style="width:100%;">
+    <div class="layui-input-group" style="width:100%;">
+        <div class="layui-input-split layui-input-prefix">
+            标题
+        </div>
+        <input type="text" id="title" class="layui-input" style="width:100%;">
+    </div>
+</div>
+<div class="layui-form-item" style="width:100%;">
+    <div class="layui-input-group" style="width:100%;">
+        <div class="layui-input-split layui-input-prefix">
+            图标
+        </div>
+        <input type="text" id="icon" placeholder="可选" class="layui-input" style="width:100%;">
+    </div>
+</div>
+<hr>
+<div style="margin-top:20px;margin-bottom: 20px">
+    <button id="add" class="layui-btn  layui-btn-radius layui-btn-fluid">对当前页添加规则
+    </button>
+</div>
+<hr>
+<button id="open" type="button" class="layui-btn layui-btn-fluid">高级设置</button>
+<script src="popup.js"></script>
+</body>
+</html>

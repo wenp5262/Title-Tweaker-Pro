@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Title Tweaker 规则配置</title>
+    <link href="layui.css" rel="stylesheet">
+    <style>
+        /* 页面整体居中 + 背景 */
+        body{
+            min-height:100vh;
+            margin:0;
+            display:flex;
+            align-items:flex-start;       /* 只水平居中，顶部对齐更自然 */
+            justify-content:center;
+            background:#f8f8f8;
+            font-family:system-ui,-apple-system,Segoe UI,Roboto;
+        }
+
+        /* 统一的外层容器：控制两块内容同宽 */
+        .wrap{
+            width:100%;
+            max-width:960px;             /* 你也可以改成 800/1040 等 */
+            padding:32px 16px;           /* 页面左右留白 */
+            box-sizing:border-box;
+        }
+
+        /* 卡片样式（两块内容一致） */
+        .card{
+            background:#fff;
+            border-radius:8px;
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+            padding:16px;
+            margin-bottom:16px;          /* 两块之间间距 */
+        }
+
+        h2{ margin:0 0 16px; text-align:center; }
+
+        /* 让原生 select 可见并套点皮肤 */
+        .layui-form select{ display:block!important; visibility:visible!important; opacity:1!important; }
+        .layui-select{
+            appearance:none; -webkit-appearance:none; -moz-appearance:none;
+            padding:6px 10px; border:1px solid #d2d2d2; border-radius:4px; background:#fff;
+            font-size:14px; width:100%;
+            background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path fill='%23999' d='M0 0l5 6 5-6z'/></svg>") no-repeat right 10px center;
+            background-size:10px 6px; padding-right:24px;
+        }
+        .layui-select:focus{ border-color:#16b777; outline:none; }
+
+        /* 表格满宽 */
+        table.layui-table{ width:100%; border-collapse:collapse; }
+        table.layui-table th, table.layui-table td{ border:1px solid #e6e6e6; padding:8px; }
+        table.layui-table th{ background:#fafafa; font-weight:600; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h2>规则管理</h2>
+
+    <!-- 上：输入区域（放在统一宽度的卡片里） -->
+    <div class="card">
+        <div class="layui-form layui-row layui-col-space12">
+            <div class="layui-col-md2">
+                <select id="type" class="layui-select">
+                    <option value="match">match（通配）</option>
+                    <option value="regex">regex（正则）</option>
+                </select>
+            </div>
+            <div class="layui-col-md3">
+                <input id="pattern" type="text" placeholder="如：https://www.qidian.com/chapter/*" class="layui-input">
+            </div>
+            <div class="layui-col-md3">
+                <input id="title" type="text" placeholder="设置的标题" class="layui-input">
+            </div>
+            <div class="layui-col-md3">
+                <input id="icon" type="text" placeholder="图标 URL（可选）" class="layui-input">
+            </div>
+            <div class="layui-col-md1">
+                <button id="add" type="button" class="layui-btn">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 下：表格卡片（同样放在统一宽度的卡片里） -->
+    <div class="card">
+        <div class="layui-form">
+            <table class="layui-table" id="list">
+                <thead>
+                <tr>
+                    <th>类型</th>
+                    <th>匹配模式</th>
+                    <th>标题</th>
+                    <th>图标</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="options.js" defer></script>
+</body>
+</html>
