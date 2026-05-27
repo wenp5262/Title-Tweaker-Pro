@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "Title Tweaker Pro"
+  },
+  "appDescription": {
+    "message": "Personaliza dinámicamente los títulos de páginas web y los favicons mediante reglas de coincidencia basadas en expresiones regulares."
+  }
+}
